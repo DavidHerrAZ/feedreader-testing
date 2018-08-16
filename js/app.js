@@ -7,7 +7,7 @@
  */
 
 // The names and URLs to all of the feeds we'd like available.
-var allFeeds = [
+var allFeeds_Test = [
     {
         name: 'Udacity Blog',
         url: 'http://blog.udacity.com/feed'

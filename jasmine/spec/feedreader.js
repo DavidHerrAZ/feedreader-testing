@@ -30,7 +30,7 @@ $(
       it("URL are defined", function() {
         for (feed of allFeeds) {
           expect(feed.url).toBeDefined();
-          expect(feed.url.length).not.toEqual(null);
+          expect(feed.url.length).not.toEqual(0);
         }
       });
 
@@ -41,7 +41,7 @@ $(
       it("Name are defined", function() {
         for (feed of allFeeds) {
           expect(feed.name).toBeDefined();
-          expect(feed.name.length).not.toEqual(null);
+          expect(feed.name.length).not.toEqual(0);
         }
       });
     });
@@ -50,8 +50,8 @@ $(
       /* ensures the menu element is hidden by default. 
          */
       it("is hidden by default", function() {
-        const body = document.querySelector("body").classList.value;
-        expect(body).toEqual("menu-hidden");
+        const body = document.querySelector("body");
+        expect($(body).hasClass("menu-hidden")).toBe(true);
       });
 
       /* ensures the menu changes
@@ -65,11 +65,11 @@ $(
 
         // is the menu-hidden class not present on first click?
         menuIcon.click();
-        expect(body.classList.value).toEqual("");
+        expect($(body).hasClass("menu-hidden")).toBe(false);
 
         // is the menu-hidden class now present when clicked again?
         menuIcon.click();
-        expect(body.classList.value).toEqual("menu-hidden");
+        expect($(body).hasClass("menu-hidden")).toBe(true);
       });
     });
     /* test suite named "Initial Entries" */
@@ -83,14 +83,10 @@ $(
       });
 
       it(".feed has at least one .entry element", function() {
-        feed = document.querySelector(".feed");
-        entry = document.querySelector(".entry");
+        entry = document.querySelectorAll(".feed .entry").length;
 
         // Check whether the feed has children
-        expect(feed.children.length).not.toEqual(0);
-
-        // And that those children are non-empty .entry classes
-        expect(entry).not.toEqual(null);
+        expect(entry).toBeGreaterThan(0)
       });
     });
     /* test suite named "New Feed Selection" */

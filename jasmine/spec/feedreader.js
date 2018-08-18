@@ -63,9 +63,11 @@ $(
         const body = document.querySelector("body");
         const menuIcon = document.querySelector(".menu-icon-link");
 
+        // is the menu-hidden class not present on first click?
         menuIcon.click();
         expect(body.classList.value).toEqual("");
 
+        // is the menu-hidden class now present when clicked again?
         menuIcon.click();
         expect(body.classList.value).toEqual("menu-hidden");
       });
@@ -84,7 +86,10 @@ $(
         feed = document.querySelector(".feed");
         entry = document.querySelector(".entry");
 
+        // Check whether the feed has children
         expect(feed.children.length).not.toEqual(0);
+
+        // And that those children are non-empty .entry classes
         expect(entry).not.toEqual(null);
       });
     });
@@ -96,19 +101,25 @@ $(
       let feedHeaders, feedOne, feedTwo;
 
       beforeEach(function(done) {
+        // Load first feed, query headers, and store for later equality testing
         loadFeed(0);
         feedHeaders = document.querySelectorAll(".entry h2");
         feedOne = Array.from(feedHeaders, entry => entry.textContent);
 
+        // Load feed two, and perform test when complete loading
         loadFeed(1, done);
       });
 
       it("changes content when a new feed is selected", function() {
+        // Query feed two headers now that page is loaded and store of equality testing
         feedHeaders = document.querySelectorAll(".entry h2");
         feedTwo = Array.from(feedHeaders, entry => entry.textContent);
 
+        // Ensure neither of the feed lengths are 0 to ensure we have entries to compare
         expect(feedOne.length).not.toEqual(0);
         expect(feedTwo.length).not.toEqual(0);
+
+        // Expect entries of the two feeds not to be equal to one another
         expect(feedOne === feedTwo).toBe(false);
       });
     });

@@ -86,7 +86,7 @@ $(
         entry = document.querySelectorAll(".feed .entry").length;
 
         // Check whether the feed has children
-        expect(entry).toBeGreaterThan(0)
+        expect(entry).toBeGreaterThan(0);
       });
     });
     /* test suite named "New Feed Selection" */
@@ -98,19 +98,20 @@ $(
 
       beforeEach(function(done) {
         // Load first feed, query headers, and store for later equality testing
-        loadFeed(0);
-        feedHeaders = document.querySelectorAll(".entry h2");
-        feedOne = Array.from(feedHeaders, entry => entry.textContent);
+        loadFeed(0, function() {
+          feedHeaders = document.querySelectorAll(".entry h2");
+          feedOne = Array.from(feedHeaders, entry => entry.textContent);
 
-        // Load feed two, and perform test when complete loading
-        loadFeed(1, done);
+          // Query feed two headers now that page is loaded and store of equality testing
+          loadFeed(1, function() {
+            feedHeaders = document.querySelectorAll(".entry h2");
+            feedTwo = Array.from(feedHeaders, entry => entry.textContent);
+            done();
+          });
+        });
       });
 
       it("changes content when a new feed is selected", function() {
-        // Query feed two headers now that page is loaded and store of equality testing
-        feedHeaders = document.querySelectorAll(".entry h2");
-        feedTwo = Array.from(feedHeaders, entry => entry.textContent);
-
         // Ensure neither of the feed lengths are 0 to ensure we have entries to compare
         expect(feedOne.length).not.toEqual(0);
         expect(feedTwo.length).not.toEqual(0);

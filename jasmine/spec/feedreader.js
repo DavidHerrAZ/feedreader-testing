@@ -46,6 +46,9 @@ $(
       });
     });
 
+    /* This suite tests functionality and user interactions with the
+    *  menu hidden in the hamburger menu in top left of page.
+    */ 
     describe("The menu", function() {
       /* ensures the menu element is hidden by default. 
          */
@@ -99,22 +102,17 @@ $(
       beforeEach(function(done) {
         // Load first feed, query headers, and store for later equality testing
         loadFeed(0, function() {
-          feedHeaders = document.querySelectorAll(".entry h2");
-          feedOne = Array.from(feedHeaders, entry => entry.textContent);
+          feedOne = document.querySelector(".feed").innerHTML;
 
-          // Query feed two headers now that page is loaded and store of equality testing
           loadFeed(1, function() {
-            feedHeaders = document.querySelectorAll(".entry h2");
-            feedTwo = Array.from(feedHeaders, entry => entry.textContent);
             done();
           });
         });
       });
-
+      
       it("changes content when a new feed is selected", function() {
-        // Ensure neither of the feed lengths are 0 to ensure we have entries to compare
-        expect(feedOne.length).not.toEqual(0);
-        expect(feedTwo.length).not.toEqual(0);
+        // Query feed two headers now that page is loaded and store of equality testing
+        feedTwo = document.querySelector(".feed").innerHTML;
 
         // Expect entries of the two feeds not to be equal to one another
         expect(feedOne === feedTwo).toBe(false);

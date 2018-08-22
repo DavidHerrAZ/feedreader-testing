@@ -12,7 +12,7 @@
 
   1. Download the .zip file from https://github.com/DavidHerrAZ/feedreader-testing
   2. Extract the files to your computer
-  3. Once extraced, open the 'index.html' file in one of your browsers.
+  3. Once extracted, open the 'index.html' file in one of your browsers.
 
 ### To use the feed reader
   1. The page will open to the Udacity Blog feed
